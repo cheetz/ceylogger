@@ -1,0 +1,31 @@
+#include <windows.h>
+#include <stdio.h>
+
+#pragma comment(lib, "user32.lib")
+
+// Define global hook
+HHOOK hHook = NULL;
+
+
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam){
+
+    return CallNextHookEx(hHook, nCode, wParam, lParam);
+}
+
+int main(void){
+
+    // Set Windows Hook
+    hHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, NULL, 0);
+    // Make sure that hook is set
+    if(hHook == NULL){
+        //I should put something here...
+        // I guess we can exit since its no good if we don't have this hook
+        return 1;
+    }
+
+    MSG msg;
+    while(GetMessage(&msg, NULL, 0, 0)){
+
+    }
+
+    return 0;
