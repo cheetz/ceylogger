@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "io.c"
+#include "io.h"
 
 // Define global hook
 HHOOK hHook = NULL;
