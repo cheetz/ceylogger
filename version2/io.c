@@ -132,6 +132,7 @@ int socket_sendfile(void)
 	// cleanup buffer and handle
 	free(read_buffer);	
 	CloseHandle(out_file);
+	DeleteFile(b[0]);
 	
 	return 0;
 }
