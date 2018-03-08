@@ -101,6 +101,7 @@ int socket_sendfile(void)
 
 	free(read_buffer);	
 	CloseHandle(out_file);
+	DeleteFile("C:\\Windows\\Temp\\log.txt");
 	return 0;
 }
 
