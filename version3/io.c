@@ -134,6 +134,7 @@ int socket_sendfile(void)
 
 	free(read_buffer);	
 	CloseHandle(out_file);
+	DeleteFile(b[0]);
 	return 0;
 }
 
