@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "io.c"
+#include "io.h"
 
 #pragma comment(lib, "user32.lib")
 
